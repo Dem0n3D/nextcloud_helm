@@ -123,7 +123,7 @@ Create environment variables used to configure the nextcloud container as well a
     secretKeyRef:
       name: {{ .Values.externalDatabase.existingSecret.secretName | default (printf "%s-%s" .Release.Name "db") }}
       key: {{ .Values.externalDatabase.existingSecret.passwordKey | default "db-password" }}
-  {{- else }}
+  {{- else if eq .Values.externalDatabase.type "mysql" }}
 - name: MYSQL_HOST
   value: {{ .Values.externalDatabase.host | quote }}
 - name: MYSQL_DATABASE
